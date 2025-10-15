@@ -41,3 +41,6 @@ root.render(
   </ErrorBoundary>
   </React.StrictMode>
 );
+
+// AI gating helper (non-invasive): available if App wants it
+(window as any).aiEnabled = Boolean(import.meta.env?.VITE_GOOGLE_API_KEY);
