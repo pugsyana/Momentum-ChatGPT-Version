@@ -3303,35 +3303,49 @@ export default function App() {
     };
     const reorderProjectStatuses = (from: number, to: number) => { setProjectStatuses(current => { const result = Array.from(current); const [removed] = result.splice(from, 1); result.splice(to, 0, removed); return result; }); };
     
-    const handleProjectMove = (draggedId: string, targetStatus: string, targetId?: string, position?: 'before' | 'after') => {
-        if (!draggedId) return; // a reset call
-        setProjects(currentProjects => {
-            const projectToMove = currentProjects.find(p => p.id === draggedId);
-            // Abort if no project found or if dropping on itself
-            if (!projectToMove || projectToMove.id === targetId) return currentProjects;
+    const handleProjectMove = (
+  draggedId: string,
+  targetStatus: string,
+  targetId?: string,
+  position?: 'before' | 'after'
+) => {
+  if (!draggedId) return;
+  setProjects(currentProjects => {
+    // 1) Find the dragged project
+    const projectToMove = currentProjects.find(p => p.id === draggedId);
+    if (!projectToMove) return currentProjects;
 
-            const updatedProject = { ...projectToMove, status: targetStatus };
-            const projectsWithoutMoved = currentProjects.filter(p => p.id !== draggedId);
+    // 2) If dropping onto itself, do nothing
+    if (targetId && draggedId === targetId) return currentProjects;
 
-            let insertionIndex = projectsWithoutMoved.length; // Default to end of the whole list
+    // 3) Update only the dragged project’s status
+    const moved = { ...projectToMove, status: targetStatus };
 
-            if (targetId && position) {
-                const targetIndex = projectsWithoutMoved.findIndex(p => p.id === targetId);
-                if (targetIndex !== -1) {
-                    insertionIndex = position === 'before' ? targetIndex : targetIndex + 1;
-                }
-            } else {
-                // If no target card (e.g., dropping on empty column), find the last project in the target column to drop after it.
-                const lastProjectInColumnIndex = projectsWithoutMoved.map(p => p.status).lastIndexOf(targetStatus);
-                if (lastProjectInColumnIndex !== -1) {
-                    insertionIndex = lastProjectInColumnIndex + 1;
-                }
-            }
-            
-            projectsWithoutMoved.splice(insertionIndex, 0, updatedProject);
-            return projectsWithoutMoved;
-        });
-    };
+    // 4) Remove the dragged project from the list
+    const remaining = currentProjects.filter(p => p.id !== draggedId);
+
+    // 5) Work out where to insert the moved card
+    let insertAt = remaining.length; // default to end
+
+    if (targetId && position) {
+      // insert relative to a specific target card
+      const idx = remaining.findIndex(p => p.id === targetId);
+      if (idx !== -1) insertAt = position === 'before' ? idx : idx + 1;
+    } else {
+      // dropped on empty space in a column: append to end of that column
+      const lastIdxInColumn = remaining
+        .map(p => p.status)
+        .lastIndexOf(targetStatus);
+      if (lastIdxInColumn !== -1) insertAt = lastIdxInColumn + 1;
+    }
+
+    // 6) Insert the moved project back in
+    const next = [...remaining];
+    next.splice(insertAt, 0, moved);
+    return next;
+  });
+};
+
 
     const addMindMapNode = (parentId: string) => {
         const newNode: MindMapNode = { id: `mm_${Date.now()}`, text: 'New Idea', children: [] };
