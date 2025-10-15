@@ -1864,6 +1864,13 @@ function ProjectColumn({ status, projects, draggedItem, onProjectDragStart, onCo
                 onDragOver={(e) => {
                     if (draggedItem?.type === 'project') e.preventDefault();
                 }}
+                onDrop={(e) => {
+  if (e.dataTransfer.getData('type') !== 'project') return;
+  e.preventDefault();
+  const draggedId = e.dataTransfer.getData('projectId');
+  if (draggedId) handleProjectMove(draggedId, status.name);
+}}
+
             >
                 {projects.map(project => (
                     <ProjectCard 
