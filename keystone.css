@@ -1,0 +1,105 @@
+/* public/keystone.css — Keystone-inspired theme (no Tailwind needed) */
+:root{
+  --bg: #0f1114;
+  --panel: #15181d;
+  --ink: #e9edf2;
+  --muted: #b9c2cf;
+  --brand: #e0b15e; /* warm gold */
+  --brand-600: #c79942;
+  --ring: #7aa2f7;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0,0,0,.35);
+  --maxw: 1100px;
+}
+
+.keystone-root{
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+.keystone-container{max-width: var(--maxw); margin: 0 auto; padding: 0 20px;}
+.keystone-nav{
+  position: sticky; top:0; z-index: 50;
+  backdrop-filter: blur(8px);
+  background: linear-gradient(to bottom, rgba(15,17,20,.85), rgba(15,17,20,.6));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.keystone-brand{display:flex; align-items:center; gap:12px; height:64px;}
+.keystone-mark{width:28px; height:28px; border-radius:8px; background: var(--brand); box-shadow: var(--shadow);}
+.keystone-wordmark{font-weight:600; letter-spacing:.4px;}
+.keystone-actions{display:flex; gap:14px; align-items:center; float:right; margin-top:-44px;}
+.keystone-link{color: var(--muted); text-decoration:none; font-size:14px}
+.keystone-link:hover{color: var(--ink)}
+
+.keystone-cta{
+  background: var(--brand);
+  color: #1a1a1a;
+  padding: 10px 14px;
+  border-radius: 9999px;
+  border: none;
+  font-weight:600;
+  cursor:pointer;
+}
+.keystone-cta:hover{ background: var(--brand-600) }
+.keystone-ghost{
+  color: var(--ink);
+  padding: 10px 14px;
+  border-radius: 9999px;
+  border:1px solid rgba(255,255,255,.15);
+  text-decoration:none;
+}
+.keystone-ghost:hover{ border-color: rgba(255,255,255,.35) }
+
+.keystone-hero{
+  position: relative;
+  padding: 68px 0 48px;
+  overflow: hidden;
+}
+.keystone-hero-bg{
+  position:absolute; inset:0;
+  background: radial-gradient(1200px 400px at 20% -10%, rgba(224,177,94,.15), transparent 60%),
+              radial-gradient(1200px 400px at 80% -10%, rgba(122,162,247,.15), transparent 60%);
+  pointer-events:none;
+}
+.keystone-hero-title{ font-size: clamp(36px, 6vw, 56px); line-height:1.05; margin: 12px 0;}
+.keystone-hero-tagline{ color: var(--muted); font-size: 18px; max-width: 720px; }
+.keystone-hero-ctas{ display:flex; gap:12px; margin-top:18px; }
+
+.keystone-content{ padding: 28px 0 48px; }
+.keystone-section{ padding: 24px 0; }
+.keystone-section-inner{
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+.keystone-h2{ font-size: 24px; margin: 4px 0 6px; }
+.keystone-subhead{ color: var(--muted); margin: 0 0 12px; }
+.keystone-card-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+.keystone-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 16px;
+  position: relative;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.keystone-card:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.15); }
+.keystone-badge{
+  position:absolute; top:12px; right:12px;
+  background: rgba(224,177,94,.18); color: var(--brand);
+  border: 1px solid rgba(224,177,94,.35);
+  padding: 4px 8px; border-radius: 9999px; font-size: 12px; font-weight:600;
+}
+.keystone-h3{ margin: 0 0 6px; font-size: 16px;}
+.keystone-body{ color: var(--muted); margin:0; }
+
+.keystone-footer{
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 20px 0 40px; color: var(--muted);
+}
+.keystone-footer .keystone-container{ display:flex; align-items:center; justify-content:space-between; }
+.keystone-footer a{ color: var(--muted); text-decoration:none; }
+.keystone-footer a:hover{ color: var(--ink); }
