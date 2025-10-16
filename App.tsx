@@ -8,7 +8,7 @@ import * as d3 from "d3";
 // D3.js is included for the mind map visualization.
 
 // ================= Data types =================
-interface Task {
+interface Task 
     id: string;
     title: string;
     priority: number;
