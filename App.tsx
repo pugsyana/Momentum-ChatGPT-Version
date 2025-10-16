@@ -1794,9 +1794,7 @@ function ProjectColumn({ status, projects, draggedItem, onProjectDragStart, onCo
     
     return (
         <div
-            draggable
-            onDragStart={(e) => onColumnDragStart(e, status.name)}
-            onDragEnter={(e) => e.preventDefault()}
+                                    onDragEnter={(e) => e.preventDefault()}
             onDragOver={(e) => {
                 e.preventDefault();
                 setIsDragOver(true);
