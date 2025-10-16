@@ -16,7 +16,6 @@ export function KeystoneShell({
 }) {
   return (
     <div className="keystone-root">
-      {/* Top Nav */}
       <header className="keystone-nav">
         <div className="keystone-container">
           <div className="keystone-brand">
@@ -32,7 +31,6 @@ export function KeystoneShell({
         </div>
       </header>
 
-      {/* Hero */}
       <section className="keystone-hero">
         <div className="keystone-container">
           <h1 className="keystone-hero-title">{title}</h1>
@@ -45,12 +43,10 @@ export function KeystoneShell({
         <div className="keystone-hero-bg" />
       </section>
 
-      {/* Content */}
       <main className="keystone-container keystone-content">
         {children}
       </main>
 
-      {/* Footer */}
       <footer className="keystone-footer">
         <div className="keystone-container">
           <span>© {new Date().getFullYear()} Momentum</span>

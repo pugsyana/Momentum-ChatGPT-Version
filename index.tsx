@@ -3,32 +3,21 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { KeystoneShell } from './components/KeystoneShell';
 
-// Inject /keystone.css into <head> without editing index.html
 function UseKeystoneCSS() {
   React.useEffect(() => {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
     el.href = '/keystone.css';
     document.head.appendChild(el);
-    return () => {
-      try { document.head.removeChild(el); } catch {}
-    };
+    return () => { try { document.head.removeChild(el); } catch {} };
   }, []);
   return null;
 }
 
-// Friendly error boundary to avoid blank screen if anything goes wrong
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error?: any}> {
-  constructor(props: any) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  static getDerivedStateFromError(error: any) {
-    return { hasError: true, error };
-  }
-  componentDidCatch(error: any, info: any) {
-    console.error('App crashed:', error, info);
-  }
+  constructor(props: any) { super(props); this.state = { hasError: false }; }
+  static getDerivedStateFromError(error: any) { return { hasError: true, error }; }
+  componentDidCatch(error: any, info: any) { console.error('App crashed:', error, info); }
   render() {
     if (this.state.hasError) {
       return (
@@ -43,9 +32,7 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 }
 
 const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
+if (!rootElement) throw new Error('Could not find root element to mount to');
 
 const root = ReactDOM.createRoot(rootElement);
 root.render(
@@ -57,12 +44,10 @@ root.render(
         tagline="Personal productivity, beautifully organized."
         ctaLabel="New Task"
         onCtaClick={() => {
-          // Optional: focus a 'new task' input if your app exposes one with id="new-task-input"
           const el = document.getElementById('new-task-input') as HTMLInputElement | null;
           if (el) el.focus();
         }}
       >
-        {/* Your existing app, unchanged, appears inside the Keystone shell */}
         <div id="app-content">
           <App />
         </div>
