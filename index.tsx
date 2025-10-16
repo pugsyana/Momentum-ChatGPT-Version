@@ -3,21 +3,32 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { KeystoneShell } from './components/KeystoneShell';
 
+// Inject /keystone.css into <head> (no index.html edits)
 function UseKeystoneCSS() {
   React.useEffect(() => {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
     el.href = '/keystone.css';
     document.head.appendChild(el);
-    return () => { try { document.head.removeChild(el); } catch {} };
+    return () => {
+      try { document.head.removeChild(el); } catch {}
+    };
   }, []);
   return null;
 }
 
+// Friendly error boundary to avoid blank screen
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error?: any}> {
-  constructor(props: any) { super(props); this.state = { hasError: false }; }
-  static getDerivedStateFromError(error: any) { return { hasError: true, error }; }
-  componentDidCatch(error: any, info: any) { console.error('App crashed:', error, info); }
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: any, info: any) {
+    console.error('App crashed:', error, info);
+  }
   render() {
     if (this.state.hasError) {
       return (
@@ -48,9 +59,7 @@ root.render(
           if (el) el.focus();
         }}
       >
-        <div id="app-content">
-          <App />
-        </div>
+        <App />
       </KeystoneShell>
     </ErrorBoundary>
   </React.StrictMode>
